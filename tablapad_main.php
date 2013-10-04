@@ -7,16 +7,45 @@
 	Version: 0.1
 	Author URI: http://www.rishiverma.com
 	*/
+	
+	add_shortcode('tabla', 'tabla_shortcode_handler');
 
-	add_action('admin_menu', 'tablapad_admin_actions');
+	function tabla_shortcode_handler($attributes, $content) {
 
-	function tablapad_admin_actions() {
-		add_posts_page("TablaPad Composition", "New Tabla Composition", 1, 
-			"tablapad_new_composition.php", "tablapad_new_composition");
+		// set/gather attributes
+		$attributes = shortcode_atts( array(
+			'hindi' => 'false'), $attributes);
+
+		// clean up content
+		$content = preg_replace('/<[^>]*>/', '', $content); //remove HTML
+		
+		if ($attributes['hindi'] == 'true') {
+			// do hindi replacement
+		} else {
+
+			// identify boles
+			$content = preg_replace('/\./', ' | ', $content); // convert end of line markers
+			$boles = explode(' ', $content); 
+
+			// transform boles
+			$transformed_boles = array();
+			foreach ($boles as &$bole) {
+				error_log($bole);
+
+				// capitalize each bole
+				$bole = ucwords($bole);
+
+				// add transformed bole to array
+				array_push($transformed_boles, $bole);
+			}
+
+			// re-combine transformed boles to a single string
+			$content = implode(' ', $transformed_boles);
+		}
+
+		// add HTML <p> and <br> markers
+		$content = wpautop($content, true);
+
+		return $content;
 	}
-
-	function tablapad_new_composition() {
-		include('tablapad_new_composition.php');
-	}
-
 ?>
