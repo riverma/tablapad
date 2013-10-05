@@ -7,9 +7,14 @@
 	Version: 0.1
 	Author URI: http://www.rishiverma.com
 	*/
-	
+
+	define( 'WPS_BASE_URL', plugin_dir_url( __FILE__ ) );
+
+
 	add_shortcode('tabla', 'tabla_shortcode_handler');
 
+	wp_enqueue_style('tabla-styles', WPS_BASE_URL . 'css/tabla-styles.css');
+	
 	function tabla_shortcode_handler($attributes, $content) {
 
 		// set/gather attributes
@@ -38,13 +43,16 @@
 				// add transformed bole to array
 				array_push($transformed_boles, $bole);
 			}
-
+			
 			// re-combine transformed boles to a single string
 			$content = implode(' ', $transformed_boles);
 		}
 
 		// add HTML <p> and <br> markers
 		$content = wpautop($content, true);
+
+		$content = "<div class='tabla_composition'>" . $content . "</div>";
+		error_log("Content: [" . $content . "]");
 
 		return $content;
 	}

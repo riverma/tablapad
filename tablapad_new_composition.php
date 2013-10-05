@@ -1,7 +1,7 @@
 <?php
 
 	// THROW AWAY CODE
-	$test_post_array = array(
+	/*$test_post_array = array(
 		'post_content' => 'This is a test post 2',
 		'post_status' => 'publish',
 		'post_title' => 'Auto created post 2 title',
@@ -22,6 +22,6 @@
 			$test_post_array['post_status'] . " status.";
 	} else {
 		echo "ERROR: " . $wp_error;
-	}
+	}*/
 
 ?>

@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Indie Flower';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Indie Flower'), local('IndieFlower'), url(10JVD_humAd5zP2yrFqw6qRDOzjiPcYnFooOUGCOsRk.woff) format('woff');
+}
+
+.tabla_composition {
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 5px;
+	font-family: 'Indie Flower', cursive;
+	background-color: #f8f4d8;
+}
