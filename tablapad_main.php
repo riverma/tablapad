@@ -8,51 +8,50 @@
 	Author URI: http://www.rishiverma.com
 	*/
 
+	// CONSTANTS
 	define( 'WPS_BASE_URL', plugin_dir_url( __FILE__ ) );
 
+	// IMPORTS
+	wp_enqueue_style('tablapad-styles', WPS_BASE_URL . 'css/tablapad-styles.css');
+	wp_enqueue_style('google-fonts-indieflower', 
+		'http://fonts.googleapis.com/css?family=Indie+Flower');
 
+	// HANDLERS
 	add_shortcode('tabla', 'tabla_shortcode_handler');
 
-	wp_enqueue_style('tabla-styles', WPS_BASE_URL . 'css/tabla-styles.css');
-	
+	/* Handles the [tabla] shortcode. 
+		 Some key operations are listed:
+		 	- capitalize each bole within the block
+		 	- beautify the font within the block
+		 	- add a div border and background to the block
+	*/
 	function tabla_shortcode_handler($attributes, $content) {
 
-		// set/gather attributes
-		$attributes = shortcode_atts( array(
-			'hindi' => 'false'), $attributes);
+		// (todo: enable configuration from a settings page)
 
 		// clean up content
-		$content = preg_replace('/<[^>]*>/', '', $content); //remove HTML
+		$content = preg_replace('/<[^>]*>/', '', $content); //remove HTML tags
 		
-		if ($attributes['hindi'] == 'true') {
-			// do hindi replacement
-		} else {
+		// identify boles
+		$content = preg_replace('/\./', ' | ', $content); // convert end of line markers
+		$boles = explode(' ', $content); 
 
-			// identify boles
-			$content = preg_replace('/\./', ' | ', $content); // convert end of line markers
-			$boles = explode(' ', $content); 
+		// transform boles
+		$transformed_boles = array();
+		foreach ($boles as &$bole) {
 
-			// transform boles
-			$transformed_boles = array();
-			foreach ($boles as &$bole) {
-				error_log($bole);
+			$bole = ucwords($bole);
 
-				// capitalize each bole
-				$bole = ucwords($bole);
-
-				// add transformed bole to array
-				array_push($transformed_boles, $bole);
-			}
-			
-			// re-combine transformed boles to a single string
-			$content = implode(' ', $transformed_boles);
+			array_push($transformed_boles, $bole);
 		}
-
+		
+		$content = implode(' ', $transformed_boles);
+	
 		// add HTML <p> and <br> markers
 		$content = wpautop($content, true);
 
+		// for CSS styling
 		$content = "<div class='tabla_composition'>" . $content . "</div>";
-		error_log("Content: [" . $content . "]");
 
 		return $content;
 	}
