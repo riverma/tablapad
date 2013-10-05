@@ -1,0 +1,41 @@
+#
+# README : TablaPad
+#
+#   Author:      Rishi Verma, http://www.rishiverma.com
+#   Description: Wordpress plugin to transform your Wordpress blog into 
+#                an intuitive Tabla composition notebook
+#                
+#                List of currently supported features:
+#                - uses wordpress shortcodes to transform tabla
+#                  composition blocks into more readable compositions
+#                - capitalizes each bole within a tabla block
+#                - beautifies the font within a tabla block
+#                - adds a div border and background to a tabla block
+#
+#   Version:     0.1
+#
+
+INSTALLATION:
+1. Pull this repo onto your desired machine: 
+   > git clone https://github.com/riverma/tablapad.git
+2. Zip the source folder into an archive: 
+   > zip -r tablapad.zip tablapad/*
+3. Navigate to the plugin installation of your Wordpress instance
+   i.e. http://localhost/wordpress/wp-admin/plugin-install.php?tab=upload
+4. Upload the zip archive you just made and hit 'Install Now'. 
+   Make sure to 'Activate' the plugin as well.
+
+USAGE:
+Within your Wordpress post text body, use the following shortcode to
+make use of the TablaPad tabla composition transformer. The transformer
+will render your tabla block to be more readable and more tabla-centric.
+
+e.g.
+--------------------------------------------------------------
+Hello World! This is my first Tabla wordpress post!
+
+[tabla]
++ dha ti dha theteketetak thetekete dha ti dha ge tun na ka ta
+o
+[/tabla]
+--------------------------------------------------------------
